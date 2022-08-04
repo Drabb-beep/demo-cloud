@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr:${dvp.nacos.address}
+  application:
+    name: demo-system-service
+server:
+  port: 8889

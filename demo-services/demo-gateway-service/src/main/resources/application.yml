@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr:${dvp.nacos.address}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: demo-system-service
+          uri: lb://demo-system-service
+          predicates:
+            - Path=/demo-system-service/**
+        - id: demo-api-service
+          uri: lb://demo-api-service
+          predicates:
+            - Path=/demo-api-service/**
+  application:
+    name: demo-gateway-service
+
+server:
+  port: 8888
