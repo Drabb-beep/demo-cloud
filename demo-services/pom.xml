@@ -17,6 +17,8 @@
     <modules>
         <module>demo-gateway-service</module>
         <module>demo-api-service</module>
+        <module>demo-OAuth2-service</module>
         <module>demo-modules</module>
+
     </modules>
 </project>
