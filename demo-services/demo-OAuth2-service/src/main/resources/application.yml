@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr:${dvp.nacos.address}
+  application:
+    name: demo-OAuth2-service
+
+server:
+  port: 8886
