@@ -1,57 +1,66 @@
 package com.demo.oauth.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity
-public class WebSecurityConfig{
+@EnableWebSecurity(debug = true) //开启Security
+public class WebSecurityConfig {
 
-//    @Autowired
-//    private AuthenticationSuccessHandler successHandler;
-//
-//    @Autowired
-//    private AuthenticationFailureHandler failureHandler;
-//
-//    @Autowired
-//    private LogoutHandler logoutHandler;
 
+    /**
+     * 设置加密方式
+     */
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+//        // 将密码加密方式采用委托方式，默认以BCryptPasswordEncoder方式进行加密，兼容ldap,MD4,MD5等方式
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        // 此处我们使用明文方式 不建议这样
+        return NoOpPasswordEncoder.getInstance();
     }
+
+    /**
+     * 针对http请求，进行拦截过滤
+     *
+     * CookieCsrfTokenRepository进行CSRF保护的工作方式：
+     *      1.客户端向服务器发出GET请求，例如请求主页
+     *      2.Spring发送 GET 请求的响应以及 Set-cookie 标头，其中包含安全生成的XSRF令牌
+     */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        //确保对我们应用程序的任何请求都需要对用户进行身份验证
-        httpSecurity.authorizeRequests(authorize ->
-                                authorize.antMatchers("/oauth2/**", "/login/**", "/logout/**")
-                .permitAll()
-                // 除了以上匹配的请求，其他都要认证
-                .anyRequest()
-                .authenticated()
-                // 允许表单登录
+    public SecurityFilterChain httpSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests.antMatchers("/login").permitAll()
+                                .anyRequest().authenticated()
                 )
-                //允许用户使用基于表单的登录进行身份验证
-                .formLogin(Customizer.withDefaults())
-                .csrf().disable()
-                //允许用户使用 HTTP Basic 身份验证进行身份验证
-                .httpBasic(Customizer.withDefaults());
+
+                //使用默认登录页面
+                .formLogin(withDefaults())
+
+                //设置form登录，设置且放开登录页login
+//                .formLogin(fromlogin -> fromlogin.loginPage("/login").permitAll())
+
+                // Spring Security CSRF保护
+                .csrf(csrfToken -> csrfToken.csrfTokenRepository(new CookieCsrfTokenRepository()))
+
+//                 //开启认证服务器的资源服务器相关功能，即需校验token
+//                .oauth2ResourceServer()
+//                .accessDeniedHandler(new SimpleAccessDeniedHandler())
+//                .authenticationEntryPoint(new SimpleAuthenticationEntryPoint())
+//                .jwt()
+        ;
         return httpSecurity.build();
     }
-
 
 }
