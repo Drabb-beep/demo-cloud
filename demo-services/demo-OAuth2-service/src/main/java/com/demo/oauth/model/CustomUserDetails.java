@@ -1,11 +1,15 @@
 package com.demo.oauth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
+@JsonIgnoreProperties({"enabled","accountNonExpired", "accountNonLocked", "credentialsNonExpired", "authorities"})
 public class CustomUserDetails implements UserDetails {
     private String username;
 
@@ -13,6 +17,7 @@ public class CustomUserDetails implements UserDetails {
 
     private List<GrantedAuthority> authorities;
 
+    public CustomUserDetails(){}
     // 构造方法
     public CustomUserDetails(String username, String password, List<GrantedAuthority> authorities) {
         this.username = username;
