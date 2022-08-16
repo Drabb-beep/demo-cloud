@@ -6,6 +6,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://127.0.0.1:8886
+          jwk-set-uri: http://127.0.0.1:8886/oauth2/jwks
   application:
     name: demo-gateway-service
   cloud:

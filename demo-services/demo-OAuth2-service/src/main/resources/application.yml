@@ -13,3 +13,8 @@ spring:
 
 server:
   port: 8886
+logging:
+  pattern:
+    level:
+      org.springframework.security.web.FilterChainProxy: trace # 过滤器执行顺序
+      org.springframework.security.web.access.ExceptionTranslationFilter: trace #异常处理
