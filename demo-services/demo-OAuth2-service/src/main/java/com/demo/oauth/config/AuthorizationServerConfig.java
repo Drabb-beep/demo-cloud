@@ -50,6 +50,7 @@ public class AuthorizationServerConfig {
         // @formatter:on
         return http.build();
     }
+//    http://localhost：8886/oauth2/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://127.0.0.1:8886/login/oauth2/code/messaging-client-oidc
 
     // @formatter:off
     @Bean

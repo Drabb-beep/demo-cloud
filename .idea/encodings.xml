@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/demo-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-config/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-services/demo-OAuth2-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-services/demo-OAuth2-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-services/demo-api-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-services/demo-gateway-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-services/demo-modules/demo-system-service/src/main/java" charset="UTF-8" />
