@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr:${dvp.nacos.address}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/vite-demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  application:
+    name: demo-vite-service
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+      max-request-size: 50MB
+    # 自定义文件上传路径
+web:
+  upload-path: D:/work/images/
+    # 显示图片的路径
+  image-path: http://localhost:8890/images/
+server:
+  port: 8890
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+logging:
+  pattern:
+    level:
+      org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace

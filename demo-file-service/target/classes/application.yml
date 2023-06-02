@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr:${dvp.nacos.address}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo-cloud-file?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  application:
+    name: demo-file-service
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+      max-request-size: 50MB
+    # 自定义文件上传路径
+minio:
+  endpoint: http://127.0.0.1:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: default
+server:
+  port: 9999
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+logging:
+  pattern:
+    level:
+      org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace

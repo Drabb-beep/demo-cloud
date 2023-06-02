@@ -16,9 +16,14 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo-config</module>
         <module>demo-common</module>
-        <module>demo-services</module>
+        <module>demo-config</module>
+        <module>demo-file-service</module>
+        <module>demo-gateway-service</module>
+        <module>demo-api-service</module>
+        <module>demo-OAuth2-service</module>
+        <module>demo-system-service</module>
+        <module>demo-vite-service</module>
     </modules>
 
     <properties>
@@ -31,6 +36,11 @@
         <spring.gateway>3.1.3</spring.gateway>
         <nacos-config-spring-boot.version>0.2.11-beta</nacos-config-spring-boot.version>
         <spring-cloud.oauth2-version>2.</spring-cloud.oauth2-version>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
+        <lombok.version>1.18.24</lombok.version>
+        <hutool-all.version>5.8.0</hutool-all.version>
+        <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
+        <fastjson2.version>2.0.22</fastjson2.version>
     </properties>
     <!-- 引入SpringCloud依赖 -->
     <dependencyManagement>
@@ -52,7 +62,27 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.8.0</version>
+                <version>${hutool-all.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
